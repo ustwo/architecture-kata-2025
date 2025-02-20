@@ -11,7 +11,7 @@
 
 Certifiable operates the grading and awarding of standard certifications via a mixture of automated and human-involved processes. With their certification numbers increasing, they need to keep up with demand, while considering the following real factors affecting the exam grading:
 
-* **Grading quality needs to be high**. Their current approach relies upon human grading for all non-multiple choice questions. While this introduces a layer of subjectivity, architecture as a discipline is not a set of binary choices, and this subjectivity could provide room for nuanced, unusual solutions that, on balance, are appropriate for the task at hand  
+* **Grading quality needs to be high**. Their current approach relies upon human grading for all non-multiple choice questions. While this introduces a layer of subjectivity, architecture as a discipline is not a set of binary choices, and this subjectivity could provide room for nuanced, unusual solutions that, on balance, are appropriate for the task at hand. With that in mind, any change that reduces the quality of the grading process is likely to erode confidence in the certification and, by extension, erode confidence in Certifiable's offering.
 * **The exam grading process needs to remain profitable**. The financial considerations are:  
   * Exam takers pay a fee of $800  
   * Assuming the exam taker passes the first round (and therefore both rounds are graded), it takes a grader 11 hours on average to complete grading  
@@ -110,3 +110,10 @@ As such, we must provide optionality to the AI-assistance, allowing for exams (o
 ## Assumptions
 
 * Short-answer questions are graded on a pass/fail basis, with no partial credit being assigned for partially correct answers
+
+## To do
+For next round:
+* Quantify approximate running costs to factor into the cost savings calculations
+* From there, identify the critical threshold for effectiveness of AI grading where it moves from a cost to a savings
+* ADRs on rolling their own RAG vs. using and off-the-shelf solution like Bedrock
+* Make this page look lovely ✨
