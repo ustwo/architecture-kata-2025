@@ -1,4 +1,4 @@
-# ADR-006: Confidence-Based Grading Process
+# ADR-004: Confidence-Based Grading Process
 ## Context
 
 Certifiable is incorporating AI to assist in grading while maintaining accuracy and fairness. A key challenge is determining when AI can autonomously grade an exam response versus when human intervention is required. This ADR defines how confidence levels guide the grading process and provides a cost analysis of AI-assisted grading.
