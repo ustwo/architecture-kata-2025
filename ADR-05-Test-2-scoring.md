@@ -62,4 +62,4 @@ The grading from multiple points of view makes the grading process easier to rev
 
 ### Risks
 
-The approach is still not foolproof against marking-down innovative solutions, grading context should include clauses to idenfity controvertial choices that are well explained and flag these for human review.
+The approach is still not foolproof against marking-down innovative solutions, grading context should include clauses to identify controversial choices that are well explained and flag these for human review.
