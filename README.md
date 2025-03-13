@@ -1,11 +1,14 @@
 # usfive - O'Reilly Architectural Katas: Spring 2025
 
-## Team Members 
-[Nick Hegarty](mailto:nickhegarty@ustwo.com)  
-[Belén Molina](mailto:belenmolina@ustwo.com)  
-[Joe McGuinness](mailto:joe.mcguinness@ustwo.com)  
-[Graham Richards](mailto:grahamrichards@ustwo.com)  
-[Vinicios Neves](mailto:vinicios.neves@ustwo.com)  
+## The Team
+![usfive team members](images/banner.png)
+
+Our team is comprised of 5 engineers from [ustwo](https://www.ustwo.com). Hello 👋 it's nice to meet you! We are:
+* Belén Molina | [LinkedIn](https://www.linkedin.com/in/bel%C3%A9n-molina-del-campo-16476644) | [email](mailto:belenmolina@ustwo.com)  
+* Graham Richards | [LinkedIn](https://www.linkedin.com/in/graham-richards-a48b276) | [email](mailto:grahamrichards@ustwo.com)  
+* Joe McGuinness | [LinkedIn](https://www.linkedin.com/in/joemcguinness) | [email](mailto:joe.mcguinness@ustwo.com)  
+* Nick Hegarty | [LinkedIn](https://www.linkedin.com/in/nick-hegarty-5a10439/) | [email](mailto:nickhegarty@ustwo.com)  
+* Vinicios Neves | [LinkedIn](https://www.linkedin.com/in/vinny-neves) | [email](mailto:vinicios.neves@ustwo.com)  
 
 ## Framing the problem
 
@@ -49,6 +52,13 @@ Doing the maths on potential gains from optimising test 1, then:
 * In today’s terms, at 200 exams per week, assuming 100% submit test 1, roughly 600 hrs/week (200 exams \* 3 hrs each to assess) is spent on assessing the short-answer portion of this test. That equates to roughly 600 hours @ $50/hr \= $30,000/week spent. Assuming 50% of this in savings puts us at **$15,000/week**  
 * Scales at 5-10x, this ranges from 3000-6000 hrs \= $150k-300k/week. Assuming 50% of this in savings puts us at **$75k-150k/week**.
 
+### Relevant ADRs
+* TODO
+* Database type for Test 1 grading
+* Caching for Test 1 grading database
+* Anti-cheating
+* Scoring thresholds
+
 ## Optimising Test 2
 
 Grading of Test 2 is similar in process to Test 1, but has at least 3 complicating factors:
@@ -76,6 +86,9 @@ Doing the maths on potential gains from optimising test 2, then:
 
 * In today’s terms, at 200 exams per week, assuming 80% of users submit test 2 (based on potential attrition and failures on the first exam), roughly 600 hrs/week (160 exams \* 8 hrs each to assess) is spent on assessing the test. That equates to roughly 1280 hours @ $50/hr \= $64,000/week spent. Assuming 30% of this in savings puts us at **$19,200/week saved**  
 * Scales at 5-10x, this ranges from 6400-12800 hrs \= $320k-640k/week. Assuming 30% of this in savings puts us at **$96k-192k/week saved**.
+
+### Relevant ADRs
+* TODO
 
 ## Cross-cutting concerns
 
@@ -107,6 +120,9 @@ As such, we must provide optionality to the AI-assistance, allowing for exams (o
 * Questions that are consistently answered incorrectly should be flagged to superusers for possible intervention  
 * Spot-checking of “automatic pass” and “automatic fail” scores should be regularly performed as time allows. For example, harvesting back 6 hours of saved time/week would be a worthwhile investment to ensure the system hasn’t gone off the rails
 
+### Relevant ADRs
+* TODO
+
 ## Assumptions
 
 * Short-answer questions are graded on a pass/fail basis, with no partial credit being assigned for partially correct answers
@@ -116,4 +132,3 @@ For next round:
 * Quantify approximate running costs to factor into the cost savings calculations
 * From there, identify the critical threshold for effectiveness of AI grading where it moves from a cost to a savings
 * ADRs on rolling their own RAG vs. using and off-the-shelf solution like Bedrock
-* Make this page look lovely ✨
