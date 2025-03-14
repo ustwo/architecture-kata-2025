@@ -30,7 +30,7 @@ compatible formats such as Mermaid
 
 1. Similarity to ‘known good’ submissions
 
-Submissions are compared to a body of expert selected high scoring previous submissions for this case study and scored for similarity.
+Submissions are compared to a body of expert-selected, high scoring previous submissions for this case study and scored for similarity. An answer that is very similar to previously scored 'known good' answers will be graded more highly than an answer that shares little similarity.
 
 ### Indicative prompt
 
