@@ -1,4 +1,4 @@
-# ADR 001: Using a relational database with caching instead of a vector database
+# ADR 001: Choice of database type for grading Test 1
 
 ## Context
 
@@ -56,9 +56,12 @@ By avoiding a vector database, we cut infrastructure costs and reduce complexity
 
 There are some tradeoffs, but they’re manageable.
 
-- **Less flexibility** → Unlike vector search, this method won’t adapt to nuanced variations in meaning. It relies on **explicitly curated answers**.
+
+- **Less flexibility** → Unlike vector search, this method won’t adapt to nuanced variations in meaning. It relies on **explicitly curated answers**.  
+  - *Mitigation:* We can introduce **configurable selection criteria** for reference answers, adjusting how many and which "known good" responses are retrieved based on factors like **difficulty level, response length, or past accuracy rates**.
 - **Cache invalidation** → We need to manage expiration policies to avoid serving outdated references.
-- **Reference diversity** → Ensuring a good mix of correct and incorrect answers requires ongoing updates to the dataset.
+- **Reference diversity** → Ensuring a good mix of correct and incorrect answers requires ongoing updates to the dataset.  
+  - *Mitigation:* We could implement **adaptive sampling**, periodically refreshing the dataset based on recent grading trends to maintain relevance.
 
 ## Conclusion
 

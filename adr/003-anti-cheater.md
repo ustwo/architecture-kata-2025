@@ -108,6 +108,7 @@ By implementing an AI Anti-cheater, we **increase grading integrity and reduce m
 - **Stronger security** → Automated checks ensure compliance with safety policies.
 - **Scalable fraud detection** → Works across high exam volumes without performance loss.
 - **Lower operational costs** → Reduces the need for human moderators.
+- **Improvement/retention of perceived certification value** → avoid fraudulent certifications and gaining a reputation for rapid, fair scoring of exams
 
 ## Tradeoffs
 
@@ -116,6 +117,8 @@ There are some tradeoffs, but they’re manageable.
 - **False positives** → Some legitimate responses may get flagged, requiring fine-tuning.
 - **Ongoing maintenance** → Detection rules need to be updated as new cheating methods emerge.
 - **Initial setup complexity** → Requires integrating multiple security layers (NeMo Guardrails + Rebuff).
+- **Admin notifications** → Implementing automated alerts for flagged submissions ensures human oversight. This allows admins to review cases manually and adjust policies if needed.
+- **Fraud mitigation policies** → If repeated fraud attempts are detected, additional restrictions like **IP blocking, rate limiting, or manual verification** can be introduced.
 
 ## Conclusion
 
