@@ -53,11 +53,9 @@ Doing the maths on potential gains from optimising test 1, then:
 * Scales at 5-10x, this ranges from 3000-6000 hrs \= $150k-300k/week. Assuming 50% of this in savings puts us at **$75k-150k/week**.
 
 ### Relevant ADRs
-* TODO
-* Database type for Test 1 grading
-* Caching for Test 1 grading database
-* Anti-cheating
-* Scoring thresholds
+* [Database and caching for Test 1 grading](adr/001-test-1-database.md)
+* [Anti-cheating approach](adr/003-anti-cheater.md)
+* [Confidence-based scoring and thresholds](adr/004-confidence-based-grading-process.md)
 
 ## Optimising Test 2
 
