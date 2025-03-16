@@ -35,12 +35,20 @@ And as a secondary layer that is specific to the introduction of AI: *how confid
 
 ### In action
 
-* Each answer is submitted to the **RAG Question Evaluator** with a prompt requesting a correctness score out of 10 to be explicitly assigned, as well as a confidence score out of 10  
-* Thresholds for human intervention must then be set to flag answers that require further consideration. For example, you might say:  
-  * Any scores with a confidence level of \< 7 require human intervention  
-  * Otherwise, scores 8-10 pass, 6-7 require human intervention, and 1-5 fail  
-* Of course these thresholds will need adjustment, but can be used as starting points  
-* “Automatic pass” must be an explicit status value for each answer, with “Reviewer pass” as an alternative. Similar gradients of status for failing grades should also be used.
+* Each answer enters the **Manual Grading** component with a status value indicating it is "new" - it hasn't yet been processed/graded
+* Answers in a "new" state trigger the **Grading Admin** component's attention, which will then use the **AI vs. Human Allocation** component to determine whether the answer should be graded via AI or a expert grader, based on thresholds described later. Any answer flagged for expert grading will receive a status of "expert grading required".  
+* Any other answer will be set to a status of "AI grading required" and is submitted to the **AI Grader** with a prompt requesting a correctness score out of 10 to be explicitly assigned, as well as a confidence score out of 10  
+* Thresholds for expert intervention must then be set to flag answers that require further consideration. For details on  scoring, please see the ADRs on correctness + confidence scoring linked below. Upon receipt of these grades from the **AI Grader**, the **Grading Admin** component will apply rules based on these thresholds and mark the answer's status to "AI pass", "AI fail", or "expert grading required".
+* Answers marked as "expert grading required" should notify an expert grader (via email or otherwise), who will see their list of questions for grading when they log in via the existing web portal. Any questions that have been taken off their plate by the AI grader will not be in their queue.
+
+Possible state transitions for an answer:
+* new->expert grading required
+* new->AI grading required
+* AI grading required->AI pass
+* AI grading required->AI fail
+* AI grading required->expert grading required
+* expert grading required->expert pass
+* expert grading required->expert fail
 
 ![Test 1 Optimisation](/images/test1.jpg)
 
@@ -54,6 +62,7 @@ Doing the maths on potential gains from optimising test 1, then:
 
 ### Relevant ADRs
 * [Database and caching for Test 1 grading](adr/001-test-1-database.md)
+* [Scoring thresholds](adr/002-scoring-thresholds.md)
 * [Anti-cheating approach](adr/003-anti-cheater.md)
 * [Confidence-based scoring and thresholds](adr/004-confidence-based-grading-process.md)
 
