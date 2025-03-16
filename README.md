@@ -36,7 +36,7 @@ And as a secondary layer that is specific to the introduction of AI: *how confid
 ### In action
 
 * Each answer enters the **Manual Grading** component with a status value indicating it is "new" - it hasn't yet been processed/graded
-* Answers in a "new" state trigger the **Grading Admin** component's attention, which will then use the **AI vs. Human Allocation** component to determine whether the answer should be graded via AI or a expert grader, based on thresholds described later. Any answer flagged for expert grading will receive a status of "expert grading required".  
+* Answers in a "new" state trigger the **Grading Admin** component's attention, which will then use the **AI vs. Human Allocation** component to determine whether the answer should be graded via AI or a expert grader, based on thresholds described later (See "AI Optionality"). Any answer flagged for expert grading will receive a status of "expert grading required".  
 * Any other answer will be set to a status of "AI grading required" and is submitted to the **AI Grader** with a prompt requesting a correctness score out of 10 to be explicitly assigned, as well as a confidence score out of 10  
 * Thresholds for expert intervention must then be set to flag answers that require further consideration. For details on  scoring, please see the ADRs on correctness + confidence scoring linked below. Upon receipt of these grades from the **AI Grader**, the **Grading Admin** component will apply rules based on these thresholds and mark the answer's status to "AI pass", "AI fail", or "expert grading required".
 * Answers marked as "expert grading required" should notify an expert grader (via email or otherwise), who will see their list of questions for grading when they log in via the existing web portal. Any questions that have been taken off their plate by the AI grader will not be in their queue.
@@ -131,17 +131,21 @@ As such, we must provide optionality to the AI-assistance, allowing for exams (o
 ### Safeguarding
 
 * Questions that are consistently answered incorrectly should be flagged to superusers for possible intervention  
-* Spot-checking of “automatic pass” and “automatic fail” scores should be regularly performed as time allows. For example, harvesting back 6 hours of saved time/week would be a worthwhile investment to ensure the system hasn’t gone off the rails
+* Spot-checking of "AI pass” and “AI fail” scores should be regularly performed as time allows. For example, harvesting back 6 hours of saved time/week would be a worthwhile investment to ensure the system hasn’t gone off the rails
+* We have also recommended a set of anti-cheating guardrails to ensure that the AI grading components are not gamed by malicious users
 
 ### Relevant ADRs
-* TODO
+* [Anti-cheating approach](adr/003-anti-cheater.md)
 
 ## Assumptions
 
 * Short-answer questions are graded on a pass/fail basis, with no partial credit being assigned for partially correct answers
-
-## To do
-For next round:
-* Quantify approximate running costs to factor into the cost savings calculations
-* From there, identify the critical threshold for effectiveness of AI grading where it moves from a cost to a savings
-* ADRs on rolling their own RAG vs. using and off-the-shelf solution like Bedrock
+* Non-functional requirements related to raw throughput and traditional problems of scale that are frequent hallmarks of real-time systems have been explicitly de-prioritised in our solution, including:
+  * Availability
+  * Scalability
+  * Performance/Response Time
+* Whereas these other common NFRs, which are pertinent to the core aims of the system, are prioritised in this solution:
+  * Security
+  * Reliability
+  * Maintainability
+* Running cost has been considered in the sections above, but is not a highly weighted NFR given that even a cursory glance at the numbers confirm the overwhelming advantage that AI-assisted processes will have to the exam scoring process, even if only a very low percentage of tests were automatically graded by the AI-supported components
