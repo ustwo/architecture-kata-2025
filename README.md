@@ -42,7 +42,7 @@ And as a secondary layer that is specific to the introduction of AI: *how confid
 * Of course these thresholds will need adjustment, but can be used as starting points  
 * “Automatic pass” must be an explicit status value for each answer, with “Reviewer pass” as an alternative. Similar gradients of status for failing grades should also be used.
 
-![Test 1 Optimisation](/images/test1.png)
+![Test 1 Optimisation](/images/test1.jpg)
 
 ### Returns
 Conservatively, we could estimate that 50% of answers can be automatically passed/failed using this approach. Depending on the nature \+ specificity of the short-answer questions, this could well be a higher percentage.
