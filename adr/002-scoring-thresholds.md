@@ -59,7 +59,7 @@ Completing our example, if this exam question's correctness thresholds were set 
 
 Our answer would be routed for human review, as it falls in the middle bracket.
 
-**TODO** Have we sufficiently explained the 1-10 grading for the agentic scoring here or elsewhere?
+**TODO** Have we sufficiently explained the 1-10 grading for the agentic scoring here or elsewhere? Is it based on known good answers, or the stated criteria for each answer?
 
 ## Options Considered
 
