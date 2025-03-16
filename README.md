@@ -71,20 +71,22 @@ Doing the maths on potential gains from optimising test 1, then:
 Grading of Test 2 is similar in process to Test 1, but has at least 3 complicating factors:
 
 1. The answers are longer and more nuanced. There are potentially more disparate acceptable answers.  
-2. And there is presumably an expectation of diagrams/charts to represent architectural thinking, which are non-trivial to interpret via AI.  
+2. There is presumably an expectation of diagrams/charts to represent architectural thinking, which are non-trivial to interpret via AI.  
 3. And there are multiple scenarios in play.
 
 These distinctions can be addressed via the following mitigating techniques:
 
 1. Additional care must be taken to upload multiple different acceptable answers for each scenario  
-2. Ensure all diagram submissions are in the form of text-based models, such as PlantUML. This will allow for the simplest ingestion of diagrams in a form that is simple for our RAG system to reason about  
-3. Similar to the grouping of related documentation for each question in Test 1, information can be grouped by scenario, with correct answers \+ scoring for each. As such, each submission can be viewed as grading the answer to 1/x questions, where x is the total number of scenarios.
+2. Ensure all diagram submissions are in the form of text-based models, such as PlantUML or Mermaid JS. This will allow for the simplest ingestion of diagrams in a form that is easy for our RAG system to reason about  
+3. Similar to the grouping of related documentation for each question in Test 1, information can be grouped by scenario, with correct answers \+ scoring for each. 
 
-And finally, the RAG query’s output should be modified to not only score as in Test 1, but also to provide a nuanced critique, highlighting similarities and differences against known good answers.
+And finally, the LLM query’s output should be modified to not only score as in Test 1, but also to provide a nuanced critique, highlighting similarities and differences against known good answers.
 
 Scoring should again be on a 1-10 scale, with high scores automatically passed, low scores automatically failed, and middle scores flagged for human grading.
 
-![Test 2 Optimisation](/images/test2.png)
+Our approach for scoring Test 2 answers needs to accommodate both the agreed upon list of criteria currently in use to arrive at a manual score, but we believe it can also uplift the scoring process by explicitly using different scoring agents to assess the architecture via different lenses. This approach is captured in [this ADR](adr/005-test-2-scoring.md).
+
+![Test 2 Optimisation](/images/test2.jpg)
 
 ### Returns 
 Conservatively, we could estimate that 30% of answers can be automatically passed/failed using this approach (a smaller percentage than Test 1, due to the more complex nature of the task).
@@ -95,7 +97,11 @@ Doing the maths on potential gains from optimising test 2, then:
 * Scales at 5-10x, this ranges from 6400-12800 hrs \= $320k-640k/week. Assuming 30% of this in savings puts us at **$96k-192k/week saved**.
 
 ### Relevant ADRs
-* TODO
+* [Scoring thresholds](adr/002-scoring-thresholds.md)
+* [Anti-cheating approach](adr/003-anti-cheater.md)
+* [Confidence-based scoring and thresholds](adr/004-confidence-based-grading-process.md)
+* [Agent scoring approach](adr/005-test-2-scoring.md)
+
 
 ## Cross-cutting concerns
 
