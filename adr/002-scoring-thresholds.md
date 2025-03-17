@@ -91,8 +91,9 @@ Agent scoring (1-10) for Test 2 will be based on clearly defined **evaluation cr
 - **Security Agent**: Rates how well the answer addresses security best practices and potential vulnerabilities.
 - **Infrastructure/Ops Agent**: Evaluates scalability, maintainability, and operational feasibility.
 - **Disaster Recovery Agent**: Assesses robustness of the proposed solution in failure scenarios and recovery procedures.
+- **Technical Product Owner Agent**: Validates whether the candidate's solution genuinely solves the stated problem, clearly addresses the core requirements, and aligns with the product goals.
 
-Each agent assigns a correctness score (1-10) according to these stated criteria, ensuring consistent scoring across different exams and graders.
+Each agent can be effectively implemented using specialized **Reasoning Models**, trained via reinforcement learning specifically for complex reasoning tasks. These models internally simulate scenarios before providing their answers, ensuring each evaluation—whether about security, infrastructure, disaster recovery, or product alignment—is thoughtful, robust, and reliable.
 
 ## Options considered
 
