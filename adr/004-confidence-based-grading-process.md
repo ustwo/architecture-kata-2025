@@ -1,4 +1,4 @@
-# ADR-004: Confidence-Based Grading Process
+# ADR-004: Confidence-based grading process
 ## Context
 
 Certifiable is incorporating AI to assist in grading while maintaining accuracy and fairness. A key challenge is determining when AI can autonomously grade an exam response versus when human intervention is required. This ADR defines how confidence levels guide the grading process and provides a cost analysis of AI-assisted grading.
@@ -26,14 +26,37 @@ The confidence score will be calculated differently for each test.
 ### Test 1
 Since Certifiable is using a relational database with caching to store curated correct and incorrect answers, AI correctness scores will be tied to **semantic similarity to known high-quality responses**.
 
-A secondary request (likely bundled with the first) will enable us to ascertain the LLM's confidence when assigning the confidence score
+A secondary request (likely bundled with the first) will enable us to ascertain the LLM's confidence in its correctness assessment clearly.
 
-**TODO** Example prompt that would produce a confidence score with bracketed scoring as above
+Below is a simplified example of how the confidence-scoring prompt will be structured:
+
+```plaintext
+You're grading an exam answer based on similarity to known correct answers.
+
+### Candidate Answer:
+"{{candidate_answer}}"
+
+### Reference Answers:
+1. "{{known_good_answer_1}}"
+2. "{{known_good_answer_2}}"
+(...)
+N. "{{known_good_answer_N}}"
+
+You previously assigned a correctness score of "{{correctness_score}}" to this answer.
+
+Now, assign a **confidence score** (1-10) reflecting your certainty in the correctness assessment above:
+
+- **8-10 (high confidence)** → You are very certain. The answer closely matches reference answers with minimal ambiguity.
+- **5-7** → You're somewhat confident, but there are minor ambiguities that a human grader might interpret differently.
+- **1-4** → You're unsure or found multiple points of ambiguity, and human review is recommended.
+
+Confidence Score (1-10):
+```
 
 ### Test 2 
 Since Certifiable is using a multi-perspective grading approach, the confidence score will be determined based on the **lowest score across the different agents**. This means that a single low confidence score will trigger human grading, so as to be as cautious as possible about reliance on AI agents when they themselves are uncertain of their conclusions.
 
-## Options Considered
+## Options considered
 
 1. **Fully Automated AI Grading**
    - AI assigns scores to all answers without human review.
