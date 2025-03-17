@@ -29,13 +29,40 @@ Since Certifiable is using a relational database with caching to store curated c
 
 AI compares answers to pre-graded reference answers from the relational database. If an answer closely matches the semantic meaning of a previously accepted response, the AI assigns a high correctness score. If an answer deviates significantly, correctness is lowered.
 
-#### Correctness Scaling Based on Answer Similarity
+#### Correctness scaling based on answer similarity
 
 Correctness will be graded by the LLM on a scale from 1-10, with 1 being least similar to the supplied correct answers, and 10 being the most similar.
 
-**TODO** Example prompt that would produce a bracketed correctness score for a new answer given a selection of known good answers to the same question
+We'll provide the LLM with a prompt containing:
+
+- **The candidate's answer**
+- **A few known good answers** retrieved from the database (balanced set)
+
+Here's how a practical example prompt might look:
+
+```plaintext
+You're grading an exam answer based on similarity to known correct answers.  
+Assign a correctness score from 1 to 10, following these guidelines:
+
+- **8-10**: Very similar meaning, covers key points, minimal or no errors.
+- **5-7**: Mostly correct, but missing some important details or partially inaccurate.
+- **1-4**: Significant differences, missing major points, or clearly incorrect.
+
+Known good answers:
+1. "{{known_good_answer_1}}"
+2. "{{known_good_answer_2}}"
+3. "{{known_good_answer_3}}"
+(...)
+N. "{{known_good_answer_N}}"
+
+Candidate's answer:
+"{{user_answer}}"
+
+Score (1-10):
+```
 
 ### Test 2 
+
 Since Certifiable is using a multi-perspective grading approach ([see the ADR here](/adr/005-test-2-scoring.md)), the correctness score will be determined based on the **aggregate of all scores across the different agents**. This means that a single low correctness score might be offset by high correctness scores from other perspectives.
 
 In addition, the use of weighted agent scoring (with the possible future inclusion of red-line minimum scoring for each agent to ensure that answers don't pass overall with an extremely low score from one agent) can be used to further accentuate certain points of view for individual questions. For example, a security-focussed agent could be weighted higher than a scalability/ops-focussed agent for a low-volume, critical service.
@@ -59,19 +86,25 @@ Completing our example, if this exam question's correctness thresholds were set 
 
 Our answer would be routed for human review, as it falls in the middle bracket.
 
-**TODO** Have we sufficiently explained the 1-10 grading for the agentic scoring here or elsewhere? Is it based on known good answers, or the stated criteria for each answer?
+Agent scoring (1-10) for Test 2 will be based on clearly defined **evaluation criteria specific to each agent's perspective**, rather than similarity to known good answers. For example:
 
-## Options Considered
+- **Security Agent**: Rates how well the answer addresses security best practices and potential vulnerabilities.
+- **Infrastructure/Ops Agent**: Evaluates scalability, maintainability, and operational feasibility.
+- **Disaster Recovery Agent**: Assesses robustness of the proposed solution in failure scenarios and recovery procedures.
 
-1. **Fully Automated AI Grading**
+Each agent assigns a correctness score (1-10) according to these stated criteria, ensuring consistent scoring across different exams and graders.
+
+## Options considered
+
+1. **Fully automated AI grading**
    - AI assigns scores to all answers without human review.
    - Relies entirely on AI decision-making, without providing human oversight for borderline answers.
    
-2. **Hybrid Model with Correctness-Based Thresholds (Selected Approach)**
+2. **Hybrid model with correctness-dased thresholds (selected approach)**
    - AI assigns scores but defers uncertain cases to human graders.
    - Balances efficiency with quality control.
    
-3. **Human-Only Grading**
+3. **Human-only grading**
    - AI is not used, all grading is manual.
    - Ensures full human oversight but is resource-intensive.
    - Automatically discarded because it's unsustainable as a business model. 
