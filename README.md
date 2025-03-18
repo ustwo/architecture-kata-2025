@@ -65,6 +65,7 @@ Doing the maths on potential gains from optimising test 1, then:
 * [Scoring thresholds](adr/002-scoring-thresholds.md)
 * [Anti-cheating approach](adr/003-anti-cheater.md)
 * [Confidence-based scoring and thresholds](adr/004-confidence-based-grading-process.md)
+* [RAG vs. raw LLM approach](/adr/006-rag-vs-raw-llm.md)
 
 ## Optimising Test 2
 
@@ -77,7 +78,7 @@ Grading of Test 2 is similar in process to Test 1, but has at least 3 complicati
 These distinctions can be addressed via the following mitigating techniques:
 
 1. Additional care must be taken to upload multiple different acceptable answers for each scenario  
-2. Ensure all diagram submissions are in the form of text-based models, such as PlantUML or Mermaid JS. This will allow for the simplest ingestion of diagrams in a form that is easy for our RAG system to reason about  
+2. Ensure all diagram submissions are in the form of text-based models, such as PlantUML or Mermaid JS. This will allow for the simplest ingestion of diagrams in a form that is easy for our AI graders to reason about  
 3. Similar to the grouping of related documentation for each question in Test 1, information can be grouped by scenario, with correct answers \+ scoring for each. 
 
 And finally, the LLM query’s output should be modified to not only score as in Test 1, but also to provide a nuanced critique, highlighting similarities and differences against known good answers.
@@ -101,20 +102,13 @@ Doing the maths on potential gains from optimising test 2, then:
 * [Anti-cheating approach](adr/003-anti-cheater.md)
 * [Confidence-based scoring and thresholds](adr/004-confidence-based-grading-process.md)
 * [Agent scoring approach](adr/005-test-2-scoring.md)
-
+* [RAG vs. raw LLM approach](/adr/006-rag-vs-raw-llm.md)
 
 ## Cross-cutting concerns
 
-### Building the knowledge base
-
-* Up-front work will be necessary to build a picture of what a “good” answer looks like. This might be done by either writing ideal correct answers for each question, or selecting multiple previously submitted high quality answers for each question as a baseline  
-* Additionally, each question might also contain explicit grading guidelines, or rubric, to ensure complete answers are submitted
-
-![Knowledge base population and usage](/images/kb.png)
-
 ### Technology to be used
 
-* Would suggest something like AWS Bedrock as an all-inclusive RAG platform would be sufficient to load and inquire against the knowledge base  
+* While our initial submission included the use of Retrieval Augmented Generation, we have pivoted away from this approach (see ADR linked below), so are no longer suggesting the use of AWS Bedrock or similar.
 * Not explicitly broken out in the diagrams are enablers like API Gateway, Lambda functions, S3, and the Foundational Model used for natural language processing
 
 
@@ -124,7 +118,7 @@ Note that the brief indicates a tentative desire to explore how AI might assist 
 
 * Thinking of what a good answer looks like and/or identifying past good answers is too time consuming  
 * The AI engine is consistently unable to score answers with high confidence  
-* The hosting/execution cost of RAG is very high
+* The hosting/execution cost of AI components is very high
 
 As such, we must provide optionality to the AI-assistance, allowing for exams (or even a single exam) to be assessed via the legacy method. This can be accomplished by adding an assessor interface that both AI and human assessors can adhere to. Additionally, a defined percentage of incoming exams can be routed for AI assessment (assumed to be 100% in the first instance). This capability is housed in the **AI/Human Allocation** component in the diagrams
 
@@ -136,6 +130,7 @@ As such, we must provide optionality to the AI-assistance, allowing for exams (o
 
 ### Relevant ADRs
 * [Anti-cheating approach](adr/003-anti-cheater.md)
+* [RAG vs. raw LLM approach](/adr/006-rag-vs-raw-llm.md)
 
 ## Assumptions
 
